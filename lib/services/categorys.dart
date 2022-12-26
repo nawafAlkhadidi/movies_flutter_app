@@ -1,10 +1,5 @@
 // ignore_for_file: avoid_print
-
-import 'package:dio/dio.dart';
-import 'package:movie_app/config/endpoints.dart';
-import 'package:movie_app/helpers/dio_helper.dart';
-import 'package:movie_app/models/categorys_model.dart';
-import 'package:movie_app/ui/components/tost.dart';
+import 'package:movie_app/library.dart';
 
 class CategorysServices {
   static Future<List<CategorysModel>> getCategorys() async {

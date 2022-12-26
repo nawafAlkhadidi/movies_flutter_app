@@ -9,6 +9,7 @@ void main() async {
     Prefs.setData(key: "Favorites", value: favoriteMovieId);
     Prefs.setData(key: "FavoriteModel", value: "null");
   }
+  Provider.debugCheckInvalidValueType = null;
 
   runApp(
     MultiProvider(

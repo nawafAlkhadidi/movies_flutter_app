@@ -5,53 +5,97 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<FavoritesProvider>(
-        create: (_) => FavoritesProvider(),
-        builder: (context, child) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.watch<FavoritesProvider>().fetchFavoriteMovieList();
-            },
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: FutureBuilder(
-                      future: context
-                          .watch<FavoritesProvider>()
-                          .fetchFavoriteMovieList(),
-                      builder: (context, dataSnapshot) {
-                        {
-                          return Consumer<FavoritesProvider>(
-                            builder: (context, list, child) {
-                              List<MoviesDetailsModel> myList =
-                                  list.getFavoriteMovieList;
-                              return GridView.count(
-                                shrinkWrap: false,
-                                crossAxisCount: 2,
-                                children: List.generate(
-                                    list.getFavoriteMovieList.length, (index) {
-                                  return FavoritesMoviesCard(
-                                      movie: myList[index]);
-                                }),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
-
-                  //NewPlayingPoster()
-                ],
-              ),
-            ),
-          );
-        });
+    return ListenableProvider<FavoritesProvider>(
+      create: (_) => FavoritesProvider(),
+      // we use `builder` to obtain a new `BuildContext` that has access to the provider
+      builder: (context, child) {
+        // No longer throws
+        return RefreshIndicator(
+          onRefresh: ()async{
+             context.read<FavoritesProvider>().fetchFavoriteMovieList();
+          },
+          child: GridView.count(
+            shrinkWrap: false,
+            crossAxisCount: 2,
+            children: List.generate(
+                context.watch<FavoritesProvider>().getFavoriteMovieList.length,
+                (index) {
+              return FavoritesMoviesCard(
+                  movie: context
+                      .watch<FavoritesProvider>()
+                      .getFavoriteMovieList[index]);
+            }),
+          ),
+        );
+      },
+    );
   }
 }
+
+// @override
+// Widget build(BuildContext context) {
+//   return Consumer<FavoritesProvider>(
+//                           builder: (context, list, child) {
+
+//                             return GridView.count(
+//                               shrinkWrap: false,
+//                               crossAxisCount: 2,
+//                               children: List.generate(
+//                                   list.getFavoriteMovieList.length, (index) {
+//                                 return FavoritesMoviesCard(
+//                                     movie: list.getFavoriteMovieList[index]);
+//                               }),
+//                             );
+//                           },
+//                         );
+
+// ChangeNotifierProvider<FavoritesProvider>(
+//     create: (_) => FavoritesProvider(),
+//     builder: (context, child) {
+//       return RefreshIndicator(
+//         onRefresh: () async {
+//          context.read<FavoritesProvider>().fetchFavoriteMovieList();
+//          print( context.read<FavoritesProvider>().getFavoriteMovieList.length);
+//         },
+//         child: SafeArea(
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Expanded(
+//                 child: FutureBuilder(
+//                   future: context
+//                       .watch<FavoritesProvider>()
+//                       .fetchFavoriteMovieList(),
+//                   builder: (context, dataSnapshot) {
+//                     {
+//                       return Consumer<FavoritesProvider>(
+//                         builder: (context, list, child) {
+
+//                           return GridView.count(
+//                             shrinkWrap: false,
+//                             crossAxisCount: 2,
+//                             children: List.generate(
+//                                 list.getFavoriteMovieList.length, (index) {
+//                               return FavoritesMoviesCard(
+//                                   movie: list.getFavoriteMovieList[index]);
+//                             }),
+//                           );
+//                         },
+//                       );
+//                     }
+//                   },
+//                 ),
+//               ),
+
+//               //NewPlayingPoster()
+//             ],
+//           ),
+//         ),
+//       );
+//     });
+//   }
+// }
 
 class FavoritesMoviesCard extends StatelessWidget {
   final MoviesDetailsModel movie;
@@ -77,8 +121,6 @@ class FavoritesMoviesCard extends StatelessWidget {
               imageProvider,
             ) =>
                 Container(
-              // height: context.height * 0.5,
-              // width: context.width * 0.34,
               decoration: BoxDecoration(
                 color: Colors.amber,
                 borderRadius: const BorderRadius.all(Radius.circular(20)),

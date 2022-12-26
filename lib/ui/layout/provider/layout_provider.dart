@@ -1,5 +1,4 @@
 import 'package:movie_app/library.dart';
-import 'package:movie_app/ui/layout/trending/trending_screen.dart';
 
 class LayoutProvider with ChangeNotifier {
   ////////////////////////////! variables !/////////////////////////

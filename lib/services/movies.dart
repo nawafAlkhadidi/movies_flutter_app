@@ -1,11 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:dio/dio.dart';
-import 'package:movie_app/config/endpoints.dart';
-import 'package:movie_app/helpers/dio_helper.dart';
-import 'package:movie_app/models/cast_model.dart';
-import 'package:movie_app/models/movies_details_model.dart';
-import 'package:movie_app/ui/components/tost.dart';
+import 'package:movie_app/library.dart';
 
 class MoviesServices {
   static Future<List<MoviesDetailsModel>> getNewPlayingMovies() async {

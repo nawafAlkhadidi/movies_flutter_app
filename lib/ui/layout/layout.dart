@@ -1,4 +1,3 @@
-import 'package:circle_nav_bar/circle_nav_bar.dart';
 import 'package:movie_app/library.dart';
 
 class LayoutScreen extends StatelessWidget {
