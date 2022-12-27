@@ -1,4 +1,5 @@
 import 'package:movie_app/library.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TrendingScreen extends StatelessWidget {
   const TrendingScreen({super.key});
@@ -24,6 +25,16 @@ class TrendingScreen extends StatelessWidget {
                           .fetchTrendingMovies(),
                       builder: (context, dataSnapshot) {
                         {
+                          if (dataSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return ListView.builder(
+                                itemCount: 5,
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (_, index) =>
+                                    getShimmerTrendingLoading(context));
+                          }
                           return Consumer<TrendingProvider>(
                             builder: (context, list, child) {
                               List<MoviesDetailsModel> myList =
@@ -81,9 +92,7 @@ class TrendingMoviesCard extends StatelessWidget {
                 ) =>
                     Container(
                   height: context.height * 0.24,
-                  //width: context.width * 0.31,
                   decoration: BoxDecoration(
-                    color: Colors.amber,
                     borderRadius: const BorderRadius.all(Radius.circular(20)),
                     image: DecorationImage(
                       fit: BoxFit.cover,
@@ -123,4 +132,34 @@ class TrendingMoviesCard extends StatelessWidget {
       ],
     );
   }
+}
+
+Shimmer getShimmerTrendingLoading(BuildContext context) {
+  return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+            child: Container(
+              height: context.height * 0.24,
+              //width: context.width * 0.31,
+              decoration: BoxDecoration(
+                color: AppBrand.blackColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+            child: IconButton(
+              icon: Icon(Icons.favorite,
+                  size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
+              onPressed: () {},
+            ),
+          )
+        ],
+      ));
 }

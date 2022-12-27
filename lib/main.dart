@@ -15,7 +15,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => LayoutProvider()),
-        ChangeNotifierProvider(create: (context) => HomeProvider()),
+        // ChangeNotifierProvider(create: (context) => HomeProvider()),
         ChangeNotifierProvider(create: (context) => TrendingProvider()),
         ChangeNotifierProvider(create: (context) => FavoritesProvider()),
       ],

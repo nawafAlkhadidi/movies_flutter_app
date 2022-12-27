@@ -1,5 +1,5 @@
-
 import 'package:movie_app/library.dart';
+import 'package:shimmer/shimmer.dart';
 
 class NewPlayingMovies extends StatelessWidget {
   const NewPlayingMovies({super.key});
@@ -28,25 +28,33 @@ class NewPlayingMovies extends StatelessWidget {
                           color: AppBrand.mainColor),
                     ),
                   ),
+
                   SizedBox(
                     height: context.height * 0.16,
                     child: FutureBuilder(
                       future: context.read<HomeProvider>().fetchNewPlaying(),
                       builder: (context, dataSnapshot) {
-                        {
-                          return Consumer<HomeProvider>(
-                            builder: (context, list, child) => ListView.builder(
-                                itemCount: list.getNewPlayingMoviesList.length,
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                primary: false,
-                                itemBuilder: (_, index) => SizedBox(
-                                        child: NewPlayingCard(
-                                      movie:
-                                          list.getNewPlayingMoviesList[index],
-                                    ))),
-                          );
+                        if (dataSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return ListView.builder(
+                              itemCount: 5,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (_, index) =>
+                                  getShimmerLoading(context));
                         }
+                        return Consumer<HomeProvider>(
+                          builder: (context, list, child) => ListView.builder(
+                              itemCount: list.getNewPlayingMoviesList.length,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (_, index) => SizedBox(
+                                      child: NewPlayingCard(
+                                    movie: list.getNewPlayingMoviesList[index],
+                                  ))),
+                        );
                       },
                     ),
                   ),
@@ -104,4 +112,35 @@ class NewPlayingCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Shimmer getShimmerLoading(BuildContext context) {
+  return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Container(
+              alignment: AlignmentDirectional.center,
+              height: context.height * 0.15,
+              width: context.width * 0.6,
+              decoration: BoxDecoration(
+                color: AppBrand.blackColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1),
+              child: IconButton(
+                icon: Icon(Icons.favorite,
+                    size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
+      ));
 }

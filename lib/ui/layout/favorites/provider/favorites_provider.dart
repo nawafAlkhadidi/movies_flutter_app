@@ -41,14 +41,16 @@ class FavoritesProvider with ChangeNotifier {
       await Prefs.setData(key: "Favorites", value: favoriteMovieId);
       _favoriteMovieList.removeWhere((element) => element.id == movie.id!);
       await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
+      await fetchFavoriteMovieList();
       // notifyListeners();
     } else {
       favoriteMovieId.add(movie.id.toString());
       await Prefs.setData(key: "Favorites", value: favoriteMovieId);
       _favoriteMovieList.add(movie);
       await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
+     await fetchFavoriteMovieList();
     }
-    fetchFavoriteMovieList();
+   // fetchFavoriteMovieList();
     notifyListeners();
   }
 }

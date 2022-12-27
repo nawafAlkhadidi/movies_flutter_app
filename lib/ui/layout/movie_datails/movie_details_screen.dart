@@ -1,4 +1,5 @@
 import 'package:movie_app/library.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   final MoviesDetailsModel movie;
@@ -13,6 +14,12 @@ class MovieDetailsScreen extends StatelessWidget {
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(300),
               child: AppBar(
+                leading: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: AppBrand.whiteColor,
+                    ),
+                    onPressed: () => Get.back()),
                 elevation: 0,
                 backgroundColor: AppBrand.backgroundColor,
                 flexibleSpace: ClipRRect(
@@ -23,10 +30,11 @@ class MovieDetailsScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         image: DecorationImage(
-                            image: NetworkImage(
-                              "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
-                            ),
-                            fit: BoxFit.fill)),
+                      image: NetworkImage(
+                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                      ),
+                      fit: BoxFit.fill,
+                    )),
                   ),
                 ),
                 actions: [
@@ -158,6 +166,16 @@ class MovieDetailsScreen extends StatelessWidget {
                             .fetchGetCast(movie.id),
                         builder: (context, dataSnapshot) {
                           {
+                            if (dataSnapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return ListView.builder(
+                                  itemCount: 5,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder: (_, index) =>
+                                      shimmerCastLoading(context));
+                            }
                             return Consumer<MovieDetailsProvider>(
                               builder: (context, list, child) {
                                 List<CastModel> myList = list.getMoviesCastList;
@@ -186,8 +204,6 @@ class MovieDetailsScreen extends StatelessWidget {
         });
   }
 }
-
-// //
 
 class CastCard extends StatelessWidget {
   final String? profilePath;
@@ -234,4 +250,35 @@ class CastCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Shimmer shimmerCastLoading(BuildContext context) {
+  return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Container(
+              alignment: AlignmentDirectional.center,
+              height: context.height * 0.2,
+              width: context.width * 0.31,
+              decoration: BoxDecoration(
+                color: AppBrand.blackColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1),
+              child: IconButton(
+                icon: Icon(Icons.favorite,
+                    size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
+      ));
 }

@@ -1,4 +1,5 @@
 import 'package:movie_app/library.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MoviesByCategorys extends StatelessWidget {
   const MoviesByCategorys({super.key});
@@ -37,6 +38,16 @@ class MoviesByCategorys extends StatelessWidget {
                         future: context.read<HomeProvider>().fetchCategorys(),
                         builder: (context, dataSnapshot) {
                           {
+                            if (dataSnapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return ListView.builder(
+                                  itemCount: 5,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  itemBuilder: (_, index) =>
+                                      shimmeCategorysLoading(context));
+                            }
                             return Consumer<HomeProvider>(
                               builder: (context, list, child) =>
                                   ListView.builder(
@@ -65,6 +76,16 @@ class MoviesByCategorys extends StatelessWidget {
                           .fetchMoviesBycategorysList(id: 28),
                       builder: (context, dataSnapshot) {
                         {
+                          if (dataSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return ListView.builder(
+                                itemCount: 5,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (_, index) =>
+                                    shimmerMoviesByCategorysLoading(context));
+                          }
                           return Consumer<HomeProvider>(
                             builder: (context, list, child) {
                               List<MoviesDetailsModel> myList =
@@ -176,4 +197,52 @@ class CategorysCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Shimmer shimmerMoviesByCategorysLoading(BuildContext context) {
+  return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Container(
+              alignment: AlignmentDirectional.center,
+              height: context.height * 0.2,
+              width: context.width * 0.31,
+              decoration: BoxDecoration(
+                color: AppBrand.blackColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1),
+              child: IconButton(
+                icon: Icon(Icons.favorite,
+                    size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
+      ));
+}
+
+Shimmer shimmeCategorysLoading(BuildContext context) {
+  return Shimmer.fromColors(
+    baseColor: Colors.grey[300]!,
+    highlightColor: Colors.grey[100]!,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: AppBrand.blackColor.withOpacity(0.4),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
+        height: 60,
+        width: 85,
+      ),
+    ),
+  );
 }

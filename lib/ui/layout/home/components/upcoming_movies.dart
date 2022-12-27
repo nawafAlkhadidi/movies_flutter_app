@@ -1,4 +1,5 @@
 import 'package:movie_app/library.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UpComingMovies extends StatelessWidget {
   const UpComingMovies({super.key});
@@ -35,6 +36,18 @@ class UpComingMovies extends StatelessWidget {
                           context.read<HomeProvider>().fetchUpComingMovies(),
                       builder: (context, dataSnapshot) {
                         {
+
+                        if (dataSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return ListView.builder(
+                              itemCount: 5,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              primary: false,
+                              itemBuilder: (_, index) =>
+                                 getShimmerUpComingLoading(context)
+                                  );
+                        }
                           return Consumer<HomeProvider>(
                             builder: (context, list, child) => ListView.builder(
                                 itemCount: list.getUpComingMoviesList.length,
@@ -105,3 +118,36 @@ class UpComingMoviesCard extends StatelessWidget {
     );
   }
 }
+
+
+Shimmer getShimmerUpComingLoading(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          Container(
+            alignment: AlignmentDirectional.center,
+            height: context.height * 0.2,
+                width: context.width * 0.31,
+            decoration: BoxDecoration(
+              color: AppBrand.blackColor.withOpacity(0.1),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 1),
+            child: IconButton(
+              icon: Icon(Icons.favorite,
+                  size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
+              onPressed: () {},
+            ),
+          )
+        ],
+      ),
+    )
+    );
+  }
