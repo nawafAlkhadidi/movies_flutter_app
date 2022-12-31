@@ -10,23 +10,23 @@ In this project, I developed an application using the Dart language (Flutter), a
 
 NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies/get-movie-details)
 
-# Features
+# Features :
 
-    - Design with Flutter.
-    - For Android & iOS.
-    - Separate file for each page & component.
-    - Bottom bar.
-    - Favorites movies Page.
-    - Shows the trending movies Page.
-    - Easy to understand code.
-    - Clean code.
-    - Ready to integrate.
-    - The favorite movies available each time.
-    - Shows the upcoming movies.
-    - Shows new playing movies.
-    - Shows movies based on the category.
-    - Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast.
-    - Shimmers pagination.
+ - Design with Flutter.
+ - For Android & iOS.
+ - Separate file for each page & component.
+ - Bottom bar.
+ - Favorites movies Page.
+ - Shows the trending movies Page.
+ - Easy to understand code.
+ - Clean code.
+ - Ready to integrate.
+ - The favorite movies available each time.
+ - Shows the upcoming movies.
+ - Shows new playing movies.
+ - Shows movies based on the category.
+ - Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast.
+ - Shimmers pagination.
     ... Much More
 
 # UI inspiration :
