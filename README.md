@@ -8,18 +8,26 @@
 
 In this project, I developed an application using the Dart language (Flutter), a simple app that displays many movies
 
-# Technical Requirements
+NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies/get-movie-details)
 
-NOTE: [Here_is_the_API_documentation](https://documenter.getpostman.com/view/22492456/2s7YfU5r7h)
+# Features
 
-Shows the upcoming movies.
- Shows the trending movies.
-  Shows now playing movies.
-   Shows all movies based on the category like action, drama, animation, or else.
-    The user can add/remove a movie to/from the favorites list. Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast
-
-
-Also save the score locally on local storage to be used in Profile tab
+    - Design with Flutter.
+    - For Android & iOS.
+    - Separate file for each page & component.
+    - Bottom bar.
+    - Favorites movies Page.
+    - Shows the trending movies Page.
+    - Easy to understand code.
+    - Clean code.
+    - Ready to integrate.
+    - The favorite movies available each time.
+    - Shows the upcoming movies.
+    - Shows new playing movies.
+    - Shows movies based on the category.
+    - Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast.
+    - Shimmers pagination.
+    ... Much More
 
 # UI inspiration :
 
