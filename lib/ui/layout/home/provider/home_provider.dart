@@ -9,7 +9,6 @@ class HomeProvider with ChangeNotifier {
   List<CategorysModel> _categorysList = [];
   List<MoviesDetailsModel> _moviesBycategorysList = [];
   int categoryId = 28;
-
 ////////////////////////! variables !/////////////////////////
 
   List<MoviesDetailsModel> get getNewPlayingMoviesList => _newPlayingMoviesList;
@@ -33,26 +32,10 @@ class HomeProvider with ChangeNotifier {
   List<MoviesDetailsModel> get getMoviesBycategorysList =>
       _moviesBycategorysList;
 
-  // setGetMoviesBycategorysList(List<MoviesDetailsModel> newList) {
-  //   _moviesBycategorysList = newList;
-  //  notifyListeners();
-  // }
-
   Future fetchMoviesBycategorysList({int? id}) async {
-    //  List<MoviesDetailsModel> newList =
     _moviesBycategorysList =
         await MoviesServices.getMoviesBycategorys(id: categoryId);
-//i///f(_moviesBycategorysList.isNotEmpty){
     setCatagoryId(id!);
-
-//}
-    // if (kDebugMode) {
-    //   print("nwawaf");
-    //   print(_moviesBycategorysList.length);
-    // }
-
-    // setGetMoviesBycategorysList(newList);
-    // notifyListeners();
   }
 
   int get getCategoryId => categoryId;

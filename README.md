@@ -1,17 +1,58 @@
-# movie_app
+<p align="center">
+    <a href="">
+        <img src="./example/poster.png" height="500px">
+    </a>
+</p>
 
-A new Flutter project.
+# Quiz U App :
 
-## Getting Started
+In this project, I developed an application using the Dart language (Flutter), a simple app that displays many movies
 
-This project is a starting point for a Flutter application.
+# Technical Requirements
 
-A few resources to get you started if this is your first Flutter project:
+NOTE: [Here_is_the_API_documentation](https://documenter.getpostman.com/view/22492456/2s7YfU5r7h)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Shows the upcoming movies.
+ Shows the trending movies.
+  Shows now playing movies.
+   Shows all movies based on the category like action, drama, animation, or else.
+    The user can add/remove a movie to/from the favorites list. Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# movie_app
+
+Also save the score locally on local storage to be used in Profile tab
+
+# UI inspiration :
+
+
+Favorite Movies :
+
+The favorite movies available each time the user opens the app
+<!-- 
+- [Quiz App UI Design](https://www.behance.net/gallery/110674751/Quiz-App-UI-Design/modules/633351579)
+- [Queezy - Leaderboard, Answers Result, User Profile](https://dribbble.com/shots/17726071-Queezy-Leaderboard-Answers-Result-User-Profile?utm_source=Clipboard_Shot&utm_campaign=illiyinstudio&utm_content=Queezy%20-%20Leaderboard%2C%20Answers%20Result%2C%20User%20Profile&utm_medium=Social_Share) -->
+
+# dependencies :
+
+- get: ^4.6.5
+
+- dio: ^4.0.6
+
+- flutter_svg: ^1.1.6
+
+- provider: ^6.0.5
+
+- circle_nav_bar: ^2.0.1+1
+
+- flutter_cache_manager: ^3.3.0
+
+- cached_network_image: ^3.2.3
+
+- fluttertoast: ^8.1.2
+
+- flutter_rating_bar: ^4.0.1
+
+- share_plus: ^6.3.0
+
+- shared_preferences: ^2.0.15
+
+- shimmer: ^2.0.0

@@ -27,7 +27,6 @@ class MoviesByCategorys extends StatelessWidget {
                           color: AppBrand.mainColor),
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
@@ -67,7 +66,6 @@ class MoviesByCategorys extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   SizedBox(
                     height: context.height * 0.21,
                     child: FutureBuilder(
@@ -104,11 +102,6 @@ class MoviesByCategorys extends StatelessWidget {
                       },
                     ),
                   ),
-                  // SizedBox(
-                  //   height: context.height * 0.21,
-                  //   child:
-                  // ),
-                  //  NewPlayingPoster()
                 ],
               ));
         });
@@ -142,7 +135,6 @@ class MoviesByCategorysCard extends StatelessWidget {
                 height: context.height * 0.2,
                 width: context.width * 0.31,
                 decoration: BoxDecoration(
-                  color: Colors.amber,
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -174,7 +166,6 @@ class CategorysCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         context.read<HomeProvider>().setCatagoryId(id!);
-
         context.read<HomeProvider>().fetchMoviesBycategorysList(id: id);
       },
       child: Padding(
@@ -204,7 +195,7 @@ Shimmer shimmerMoviesByCategorysLoading(BuildContext context) {
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15 , vertical: 3),
         child: Stack(
           alignment: Alignment.topRight,
           children: [

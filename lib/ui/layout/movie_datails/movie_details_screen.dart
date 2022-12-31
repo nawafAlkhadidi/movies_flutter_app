@@ -27,14 +27,28 @@ class MovieDetailsScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(35),
                       bottomRight: Radius.circular(35)),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: NetworkImage(
-                        "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
+                  child: Center(
+                    child: CachedNetworkImage(
+                      imageBuilder: (
+                        context,
+                        imageProvider,
+                      ) =>
+                          Container(
+                        alignment: AlignmentDirectional.center,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: imageProvider,
+                          ),
+                        ),
                       ),
-                      fit: BoxFit.fill,
-                    )),
+                 placeholder: (context, url) =>
+                           Image.asset("assets/images/placeholder-image.jpeg", height: 500,   fit: BoxFit.fill,),
+                      imageUrl:
+                          "https://image.tmdb.org/t/p/w400${movie.posterPath!}",
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                    ),
                   ),
                 ),
                 actions: [
@@ -52,9 +66,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           await Share.share(
                               "${movie.title}  https://www.themoviedb.org/movie/${movie.id}");
                         }),
-                  )
-
-                  //
+                  ),
                 ],
               ),
             ),
