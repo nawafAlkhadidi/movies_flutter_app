@@ -53,11 +53,7 @@ class TrendingScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  // SizedBox(
-                  //   height: context.height * 0.21,
-                  //   child:
-                  // ),
-                  //  NewPlayingPoster()
+
                 ],
               ),
             ),
@@ -145,7 +141,6 @@ Shimmer getShimmerTrendingLoading(BuildContext context) {
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
             child: Container(
               height: context.height * 0.24,
-              //width: context.width * 0.31,
               decoration: BoxDecoration(
                 color: AppBrand.blackColor.withOpacity(0.1),
                 borderRadius: const BorderRadius.all(Radius.circular(20)),

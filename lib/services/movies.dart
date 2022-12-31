@@ -1,11 +1,7 @@
-// ignore_for_file: avoid_print
-
 import 'package:movie_app/library.dart';
 
 class MoviesServices {
   static Future<List<MoviesDetailsModel>> getNewPlayingMovies() async {
-    print("getNewPlayingMovies");
-
     List<MoviesDetailsModel> getNewPlayingList = [];
     Response res = await DioHelper.get(endpoint: EndPoints.nowPlaying);
     getNewPlayingList = (res.data["results"] as List)
@@ -20,8 +16,6 @@ class MoviesServices {
   }
 
   static Future<List<MoviesDetailsModel>> getUpComingMovies() async {
-    print("getUpComingMovies");
-
     List<MoviesDetailsModel> getUpComingMoviesList = [];
     Response res = await DioHelper.get(endpoint: EndPoints.upComing);
     getUpComingMoviesList = (res.data["results"] as List)
@@ -44,8 +38,6 @@ class MoviesServices {
     getMoviesBycategorysList = (res.data["results"] as List)
         .map((e) => MoviesDetailsModel.fromJson(e))
         .toList();
-    print("getMoviesBycategorys");
-    print(res.statusCode);
     if (res.statusCode == 200) {
       return getMoviesBycategorysList;
     } else {
@@ -61,7 +53,6 @@ class MoviesServices {
         .map((e) => MoviesDetailsModel.fromJson(e))
         .toList();
     if (res.statusCode == 200) {
-      print("getTrendingMovies");
       return getTrendingMoviesList;
     } else {
       showToast(msg: "Failed to load data", status: false);
@@ -76,8 +67,6 @@ class MoviesServices {
     );
     getMoviesCastList =
         (res.data["cast"] as List).map((e) => CastModel.fromJson(e)).toList();
-    print("getMoviesDetails");
-    print(res.statusCode);
     if (res.statusCode == 200) {
       return getMoviesCastList;
     } else {
@@ -86,4 +75,3 @@ class MoviesServices {
     return getMoviesCastList = [];
   }
 }
-//

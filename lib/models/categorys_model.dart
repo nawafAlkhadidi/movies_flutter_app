@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_collection_literals
 
 class CategorysModel {
   int? id;
@@ -12,7 +11,7 @@ class CategorysModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  Map<String, dynamic>();
+    final Map<String, dynamic> data =  <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     return data;
