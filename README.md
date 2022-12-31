@@ -21,6 +21,7 @@ NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies
  - Design with Flutter.
  - For Android & iOS.
  - Separate file for each page & component.
+ - Provider for State Managment.
  - Bottom bar.
  - Favorites movies Page.
  - Shows the trending movies Page.
