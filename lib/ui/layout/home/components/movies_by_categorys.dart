@@ -195,7 +195,7 @@ Shimmer shimmerMoviesByCategorysLoading(BuildContext context) {
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15 , vertical: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
         child: Stack(
           alignment: Alignment.topRight,
           children: [

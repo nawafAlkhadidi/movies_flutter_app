@@ -12,6 +12,6 @@ class EndPoints {
   static const cast =
       "https://api.themoviedb.org/3/movie/:id/credits?api_key=6f412be30ca7ebb35030e711e82e383e&language=en-US";
 
- static const trending =
+  static const trending =
       "https://api.themoviedb.org/3/trending/movie/day?api_key=6f412be30ca7ebb35030e711e82e383e";
 }

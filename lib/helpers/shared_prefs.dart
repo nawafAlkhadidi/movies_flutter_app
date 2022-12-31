@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Prefs {
-
   static SharedPreferences? _prefs;
 
   static init() async {
@@ -27,12 +26,12 @@ class Prefs {
     return _prefs!.get(key!);
   }
 
-
   static dynamic getSting({
     @required String? key,
   }) {
     return _prefs!.getString(key!);
   }
+
   static dynamic getDataList({
     @required String? key,
   }) {
@@ -64,8 +63,6 @@ class Prefs {
     return _prefs!.containsKey(key!);
   }
 
-
-
   static Map<String, dynamic> getMap(
     String key,
   ) {
@@ -73,16 +70,12 @@ class Prefs {
     return data.isEmpty ? {} : jsonDecode(data) as Map<String, dynamic>;
   }
 
-  static Future<void> setString(String key, String value) => _prefs!.setString(key, value);
+  static Future<void> setString(String key, String value) =>
+      _prefs!.setString(key, value);
 
   static Future<void> setMap(
     String key,
     Map<String, dynamic> map,
   ) =>
       setString(key, jsonEncode(map));
-
-
-
- 
-
 }
