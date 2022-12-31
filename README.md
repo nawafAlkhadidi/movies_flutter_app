@@ -31,6 +31,7 @@ NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies
  - Shows the upcoming movies.
  - Shows a new playing movies.
  - Shows movies based on the category.
+ - Share button
  - Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast.
  - Shimmers pagination.
     ... Much More
@@ -46,8 +47,6 @@ NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies
 - provider: ^6.0.5
 
 - circle_nav_bar: ^2.0.1+1
-
-- flutter_cache_manager: ^3.3.0
 
 - cached_network_image: ^3.2.3
 
