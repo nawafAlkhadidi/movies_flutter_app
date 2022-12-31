@@ -8,6 +8,12 @@
 
 In this project, I developed an application using the Dart language (Flutter), a simple app that displays many movies
 
+<p align="center">
+    <a href="">
+        <img src="./example/poster2.png" height="500px">
+    </a>
+</p>
+
 NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies/get-movie-details)
 
 # Features :

@@ -4,35 +4,65 @@ import 'package:shimmer/shimmer.dart';
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListenableProvider<FavoritesProvider>(
-//       create: (_) => FavoritesProvider(),
-//       builder: (context, child) {
-        
-//         return RefreshIndicator(
-//           onRefresh: () async {
-//             context.read<FavoritesProvider>().fetchFavoriteMovieList();
-//           },
-//           child: GridView.count(
-//             shrinkWrap: false,
-//             crossAxisCount: 2,
-//             children: List.generate(
-//                 context.read<FavoritesProvider>().getFavoriteMovieList.length,
-//                 (index) {
-//               return FavoritesMoviesCard(
-//                   movie: context
-//                       .read<FavoritesProvider>()
-//                       .getFavoriteMovieList[index]);
-//             }),
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
+@override
+Widget build(BuildContext context) {
+  return  ChangeNotifierProvider<FavoritesProvider>(
+    create: (_) => FavoritesProvider(),
+    builder: (context, child) {
+      return RefreshIndicator(
+        onRefresh: () async {
+         context.read<FavoritesProvider>().fetchFavoriteMovieList();
+        },
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: FutureBuilder(
+                  future: context
+                      .watch<FavoritesProvider>()
+                      .fetchFavoriteMovieList(),
+                  builder: (context, dataSnapshot) {
+                    {
+                    
+                       if (dataSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return 
+                          GridView.count(
+                            shrinkWrap: false,
+                            crossAxisCount: 2,
+                            children: List.generate(
+                                10, (index) {
+                              return getShimmerFavoritesLoading(context);
+                            }),
+                          );
+                        }
+                      return Consumer<FavoritesProvider>(
+                        builder: (context, list, child) {
 
-
+                          return GridView.count(
+                            shrinkWrap: false,
+                            crossAxisCount: 2,
+                            children: List.generate(
+                                list.getFavoriteMovieList.length, (index) {
+                              return FavoritesMoviesCard(
+                                  movie: list.getFavoriteMovieList[index]);
+                            }),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+}
 
 Shimmer getShimmerFavoritesLoading(BuildContext context) {
     return Shimmer.fromColors(
@@ -64,74 +94,7 @@ Shimmer getShimmerFavoritesLoading(BuildContext context) {
       ),
     )
     );
-  }
-
-@override
-Widget build(BuildContext context) {
-  return 
-
-ChangeNotifierProvider<FavoritesProvider>(
-    create: (_) => FavoritesProvider(),
-    builder: (context, child) {
-      return RefreshIndicator(
-        onRefresh: () async {
-         context.read<FavoritesProvider>().fetchFavoriteMovieList();
-        },
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: FutureBuilder(
-                  future: context
-                      .watch<FavoritesProvider>()
-                      .fetchFavoriteMovieList(),
-                  builder: (context, dataSnapshot) {
-                    {
-                    
-                       if (dataSnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return 
-                          GridView.count(
-                            shrinkWrap: false,
-                            crossAxisCount: 2,
-                            children: List.generate(
-                                10, (index) {
-                              return getShimmerFavoritesLoading(context);
-                            }),
-                          );
-                          
-                
-                        }
-                      return Consumer<FavoritesProvider>(
-                        builder: (context, list, child) {
-
-                          return GridView.count(
-                            shrinkWrap: false,
-                            crossAxisCount: 2,
-                            children: List.generate(
-                                list.getFavoriteMovieList.length, (index) {
-                              return FavoritesMoviesCard(
-                                  movie: list.getFavoriteMovieList[index]);
-                            }),
-                          );
-                        },
-                      );
-                    }
-                  },
-                ),
-              ),
-
-              //NewPlayingPoster()
-            ],
-          ),
-        ),
-      );
-    });
-  }
-}
-
+  } 
 class FavoritesMoviesCard extends StatelessWidget {
   final MoviesDetailsModel movie;
 

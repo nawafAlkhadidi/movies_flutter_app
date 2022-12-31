@@ -17,7 +17,7 @@ class FavoritesIcon extends StatelessWidget {
                   size: 30,
                   color: context.watch<FavoritesProvider>().isFavorite(movie)
                       ? Colors.red
-                      : AppBrand.blackColor.withOpacity(0.4)),
+                      : AppBrand.whiteColor.withOpacity(0.8)),
               onPressed: () {
                 context.read<FavoritesProvider>().addOrRemoveFavorite(movie);
               },
