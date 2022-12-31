@@ -34,7 +34,10 @@ NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies
  - Share button
  - Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast.
  - Shimmers pagination.
-    ... Much More
+ - ... Much More
+
+
+
 
 # dependencies :
 
@@ -59,3 +62,21 @@ NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies
 - shared_preferences: ^2.0.15
 
 - shimmer: ^2.0.0
+
+
+## Installation :
+
+1. clone the repository using the link below:
+```
+https://github.com/nawafAlkhadidi/movie_app_flutter
+```
+
+2. run command below  in the terminal to get the required dependencies:
+```
+flutter pub get
+```
+
+3. Run the command below on the device you want to use :
+```
+flutter run
+```
