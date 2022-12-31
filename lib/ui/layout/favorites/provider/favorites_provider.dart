@@ -10,7 +10,6 @@ class FavoritesProvider with ChangeNotifier {
           : (jsonDecode(Prefs.getSting(key: "FavoriteModel")) as List)
               .map((e) => MoviesDetailsModel.fromJson(e))
               .toList();
-
 ////////////////////////! variables !/////////////////////////
 
   List<MoviesDetailsModel> get getFavoriteMovieList => _favoriteMovieList;
@@ -42,15 +41,13 @@ class FavoritesProvider with ChangeNotifier {
       _favoriteMovieList.removeWhere((element) => element.id == movie.id!);
       await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
       await fetchFavoriteMovieList();
-      // notifyListeners();
     } else {
       favoriteMovieId.add(movie.id.toString());
       await Prefs.setData(key: "Favorites", value: favoriteMovieId);
       _favoriteMovieList.add(movie);
       await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
-     await fetchFavoriteMovieList();
+      await fetchFavoriteMovieList();
     }
-   // fetchFavoriteMovieList();
     notifyListeners();
   }
 }

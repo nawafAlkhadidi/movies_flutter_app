@@ -27,23 +27,13 @@ NOTE: [Here_is_the_API_documentation](https://developers.themoviedb.org/3/movies
  - Easy to understand code.
  - Clean code.
  - Ready to integrate.
- - The favorite movies available each time.
+ - The favorite movies available each time(in Storage).
  - Shows the upcoming movies.
- - Shows new playing movies.
+ - Shows a new playing movies.
  - Shows movies based on the category.
  - Show The details when clicking on a movie: poster, name, rating, number of reviews, description, and cast.
  - Shimmers pagination.
     ... Much More
-
-# UI inspiration :
-
-
-Favorite Movies :
-
-The favorite movies available each time the user opens the app
-<!-- 
-- [Quiz App UI Design](https://www.behance.net/gallery/110674751/Quiz-App-UI-Design/modules/633351579)
-- [Queezy - Leaderboard, Answers Result, User Profile](https://dribbble.com/shots/17726071-Queezy-Leaderboard-Answers-Result-User-Profile?utm_source=Clipboard_Shot&utm_campaign=illiyinstudio&utm_content=Queezy%20-%20Leaderboard%2C%20Answers%20Result%2C%20User%20Profile&utm_medium=Social_Share) -->
 
 # dependencies :
 
