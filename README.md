@@ -6,7 +6,7 @@
 
 # Movie App :
 
-In this project, I developed an application using the Dart language (Flutter), a simple app that displays many movies.
+In this project, I developed an application using the Dart language (Flutter), a simple app that shows many movies.
 
 <p align="center">
     <a href="">
