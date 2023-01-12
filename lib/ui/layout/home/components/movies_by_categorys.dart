@@ -163,28 +163,35 @@ class CategorysCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        context.read<HomeProvider>().setCatagoryId(id!);
-        context.read<HomeProvider>().fetchMoviesBycategorysList(id: id);
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              color: context.read<HomeProvider>().getCategoryId == id
-                  ? AppBrand.secondColor
-                  : AppBrand.whiteColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20))),
-          height: 60,
-          width: 85,
-          child: Center(
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+          color: context.read<HomeProvider>().getCategoryId == id
+              ? AppBrand.secondColor
+              : AppBrand.whiteColor,
+          borderRadius: const BorderRadius.all(Radius.circular(20))),
+      height: 60,
+      width: 85,
+      child: Stack(
+        children: [
+          Center(
               child: Text(
             name!,
             maxLines: 1,
             style: const TextStyle(fontWeight: FontWeight.bold),
           )),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: InkWell(
+              canRequestFocus: false,
+              onTap: () {
+                context.read<HomeProvider>().setCatagoryId(id!);
+                context.read<HomeProvider>().fetchMoviesBycategorysList(id: id);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

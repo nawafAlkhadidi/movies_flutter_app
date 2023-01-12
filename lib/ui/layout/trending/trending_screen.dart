@@ -102,7 +102,7 @@ class TrendingMoviesCard extends StatelessWidget {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: AppBrand.whiteColor.withOpacity(.3),
+                  color: AppBrand.blackColor.withOpacity(.3),
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                 ),
                 child: Center(
@@ -112,7 +112,7 @@ class TrendingMoviesCard extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: AppBrand.blackColor),
+                      color: AppBrand.whiteColor),
                   textAlign: TextAlign.center,
                 )),
               ),

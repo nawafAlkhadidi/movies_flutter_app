@@ -1,4 +1,3 @@
-// ignore_for_file: file_names
 
 import 'package:movie_app/library.dart';
 

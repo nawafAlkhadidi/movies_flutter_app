@@ -6,57 +6,35 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<FavoritesProvider>(
-        create: (_) => FavoritesProvider(),
-        builder: (context, child) {
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.read<FavoritesProvider>().fetchFavoriteMovieList();
-            },
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: FutureBuilder(
-                      future: context
-                          .watch<FavoritesProvider>()
-                          .fetchFavoriteMovieList(),
-                      builder: (context, dataSnapshot) {
-                        {
-                          if (dataSnapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return GridView.count(
-                              shrinkWrap: false,
-                              crossAxisCount: 2,
-                              children: List.generate(10, (index) {
-                                return getShimmerFavoritesLoading(context);
-                              }),
-                            );
-                          }
-                          return Consumer<FavoritesProvider>(
-                            builder: (context, list, child) {
-                              return GridView.count(
-                                shrinkWrap: false,
-                                crossAxisCount: 2,
-                                children: List.generate(
-                                    list.getFavoriteMovieList.length, (index) {
-                                  return FavoritesMoviesCard(
-                                      movie: list.getFavoriteMovieList[index]);
-                                }),
-                              );
-                            },
-                          );
-                        }
-                      },
-                    ),
+    final FavoritesProvider movieProvider =
+        Provider.of<FavoritesProvider>(context, listen: true);
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        movieProvider.fetchFavoriteMovieList();
+      },
+      child: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            movieProvider.status == EventLoadingStatus.loading
+                ? const CircularProgressIndicator()
+                : Expanded(
+                    child: GridView.count(
+                        shrinkWrap: false,
+                        crossAxisCount: 2,
+                        children: List.generate(
+                            movieProvider.getFavoriteMovieList.length, (index) {
+                          return FavoritesMoviesCard(
+                              movie: movieProvider.getFavoriteMovieList[index]);
+                        })),
                   ),
-                ],
-              ),
-            ),
-          );
-        });
+          ],
+        ),
+      ),
+    );
+    //   });
   }
 }
 

@@ -32,10 +32,10 @@ class Prefs {
     return _prefs!.getString(key!);
   }
 
-  static dynamic getDataList({
+  static List<String> getDataList({
     @required String? key,
   }) {
-    return _prefs!.getStringList(key!);
+    return _prefs!.getStringList(key!)!;
   }
 
   static Future<bool> setData({
@@ -49,6 +49,10 @@ class Prefs {
     if (value is List<String>) return await _prefs!.setStringList(key!, value);
 
     return await _prefs!.setDouble(key!, value!);
+  }
+
+  Future<void> setFavoriteList(String key, List<String> movies) async {
+    _prefs!.setStringList(key, movies);
   }
 
   static Future<bool> removeData({
@@ -72,6 +76,9 @@ class Prefs {
 
   static Future<void> setString(String key, String value) =>
       _prefs!.setString(key, value);
+
+  static Future<void> setListString(String key, List<String> value) =>
+      _prefs!.setStringList(key, value);
 
   static Future<void> setMap(
     String key,

@@ -7,22 +7,21 @@ class FavoritesIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<FavoritesProvider>(
-        create: (_) => FavoritesProvider(),
-        builder: (context, child) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 1),
-            child: IconButton(
-              icon: Icon(Icons.favorite,
-                  size: 30,
-                  color: context.watch<FavoritesProvider>().isFavorite(movie)
-                      ? Colors.red
-                      : AppBrand.whiteColor.withOpacity(0.8)),
-              onPressed: () {
-                context.read<FavoritesProvider>().addOrRemoveFavorite(movie);
-              },
-            ),
-          );
-        });
+    final FavoritesProvider movieProvider =
+        Provider.of<FavoritesProvider>(context, listen: true);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 1),
+      child: IconButton(
+        icon: Icon(Icons.favorite,
+            size: 30,
+            color: movieProvider.isFavorite(movie)
+                ? Colors.red
+                : AppBrand.whiteColor.withOpacity(0.8)),
+        onPressed: () {
+          movieProvider.addOrRemoveFavorite(movie);
+        },
+      ),
+    );
+    // });
   }
 }

@@ -3,14 +3,12 @@ import 'package:movie_app/library.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Prefs.init();
-  //await Prefs.clearAllSharedPref();
-  if (Prefs.getDataList(key: "Favorites") == null) {
-    List<String> favoriteMovieId = [];
-    Prefs.setData(key: "Favorites", value: favoriteMovieId);
+  //
+//await Prefs.clearAllSharedPref();
+  if (Prefs.getData(key: "FavoriteModel") == null) {
+    print("nawafalkahdsidid");
     Prefs.setData(key: "FavoriteModel", value: "null");
   }
-  Provider.debugCheckInvalidValueType = null;
-
   runApp(
     MultiProvider(
       providers: [
@@ -28,9 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: "Cairo",
-      ),
+      theme: ThemeData(fontFamily: "Cairo"),
       home: const LayoutScreen(),
     );
   }

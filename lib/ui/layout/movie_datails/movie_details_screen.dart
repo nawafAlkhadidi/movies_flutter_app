@@ -15,11 +15,12 @@ class MovieDetailsScreen extends StatelessWidget {
               preferredSize: const Size.fromHeight(300),
               child: AppBar(
                 leading: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: AppBrand.whiteColor,
-                    ),
-                    onPressed: () => Get.back()),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: AppBrand.whiteColor,
+                  ),
+                  onPressed: () => Get.back(),
+                ),
                 elevation: 0,
                 backgroundColor: AppBrand.backgroundColor,
                 flexibleSpace: ClipRRect(
@@ -42,8 +43,11 @@ class MovieDetailsScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                 placeholder: (context, url) =>
-                           Image.asset("assets/images/placeholder-image.jpeg", height: 500,   fit: BoxFit.fill,),
+                      placeholder: (context, url) => Image.asset(
+                        "assets/images/placeholder-image.jpeg",
+                        height: 500,
+                        fit: BoxFit.fill,
+                      ),
                       imageUrl:
                           "https://image.tmdb.org/t/p/w400${movie.posterPath!}",
                       errorWidget: (context, url, error) =>

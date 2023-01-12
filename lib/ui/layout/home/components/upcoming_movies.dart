@@ -36,20 +36,54 @@ class UpComingMovies extends StatelessWidget {
                           context.read<HomeProvider>().fetchUpComingMovies(),
                       builder: (context, dataSnapshot) {
                         {
+                          if (dataSnapshot.hasError) {
+                            return const Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  'Oops, movie list couldn\'t be loaded, check your internect connection.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: AppBrand.secondColor),
+                                ),
+                              ),
+                            );
+                          }
 
-                        if (dataSnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return ListView.builder(
-                              itemCount: 5,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              primary: false,
-                              itemBuilder: (_, index) =>
-                                 getShimmerUpComingLoading(context)
-                                  );
-                        }
+                          if (dataSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return ListView.builder(
+                                itemCount: 5,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                primary: false,
+                                itemBuilder: (_, index) =>
+                                    getShimmerUpComingLoading(context));
+                          }
                           return Consumer<HomeProvider>(
-                            builder: (context, list, child) => ListView.builder(
+                              builder: (context, list, child) {
+                            if (list.getUpComingMoviesList.isEmpty) {
+                              return Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/icons/movie.svg",
+                                      height: 100,
+                                      width: 100,
+                                    ),
+                                    const Text(
+                                      "There are no upcoming movies",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppBrand.mainColor),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                            return ListView.builder(
                                 itemCount: list.getUpComingMoviesList.length,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
@@ -57,8 +91,8 @@ class UpComingMovies extends StatelessWidget {
                                 itemBuilder: (_, index) => SizedBox(
                                     child: UpComingMoviesCard(
                                         movie: list
-                                            .getUpComingMoviesList[index]))),
-                          );
+                                            .getUpComingMoviesList[index])));
+                          });
                         }
                       },
                     ),
@@ -79,7 +113,7 @@ class UpComingMoviesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
       child: Stack(
         alignment: Alignment.topRight,
         children: [
@@ -111,43 +145,41 @@ class UpComingMoviesCard extends StatelessWidget {
             ),
           ),
           FavoritesIcon(
-              movie:movie,
-            )
+            movie: movie,
+          )
         ],
       ),
     );
   }
 }
 
-
 Shimmer getShimmerUpComingLoading(BuildContext context) {
-    return Shimmer.fromColors(
+  return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
       child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Stack(
-        alignment: Alignment.topRight,
-        children: [
-          Container(
-            alignment: AlignmentDirectional.center,
-            height: context.height * 0.2,
-                width: context.width * 0.31,
-            decoration: BoxDecoration(
-              color: AppBrand.blackColor.withOpacity(0.1),
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Stack(
+          alignment: Alignment.topRight,
+          children: [
+            Container(
+              alignment: AlignmentDirectional.center,
+              height: context.height * 0.2,
+              width: context.width * 0.31,
+              decoration: BoxDecoration(
+                color: AppBrand.blackColor.withOpacity(0.1),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 1),
-            child: IconButton(
-              icon: Icon(Icons.favorite,
-                  size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
-              onPressed: () {},
-            ),
-          )
-        ],
-      ),
-    )
-    );
-  }
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1),
+              child: IconButton(
+                icon: Icon(Icons.favorite,
+                    size: 30, color: AppBrand.blackColor.withOpacity(0.4)),
+                onPressed: () {},
+              ),
+            )
+          ],
+        ),
+      ));
+}

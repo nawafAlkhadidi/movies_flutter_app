@@ -3,6 +3,7 @@ library core;
 //! pubilc
 export 'package:flutter/material.dart';
 export 'package:movie_app/config/endpoints.dart';
+export 'package:movie_app/constant/api_constant.dart';
 
 
 //! Screen

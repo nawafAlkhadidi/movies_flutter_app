@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:movie_app/library.dart';
 
+enum EventLoadingStatus { notLoaded, loading, loaded }
+
 class FavoritesProvider with ChangeNotifier {
   ////////////////////////////! variables !/////////////////////////
-  List<String> favoriteMovieId = Prefs.getDataList(key: "Favorites") ?? [];
   List<MoviesDetailsModel> _favoriteMovieList =
       jsonDecode(Prefs.getSting(key: "FavoriteModel")) == null
           ? []
@@ -11,43 +12,36 @@ class FavoritesProvider with ChangeNotifier {
               .map((e) => MoviesDetailsModel.fromJson(e))
               .toList();
 ////////////////////////! variables !/////////////////////////
+  EventLoadingStatus _eventLoadingStatus = EventLoadingStatus.notLoaded;
+  EventLoadingStatus get status => _eventLoadingStatus;
 
   List<MoviesDetailsModel> get getFavoriteMovieList => _favoriteMovieList;
 
-  Future fetchFavoriteMovieList() async {
+  Future<List<MoviesDetailsModel>> fetchFavoriteMovieList() async {
+    _eventLoadingStatus = EventLoadingStatus.loading;
+    notifyListeners();
     _favoriteMovieList =
         jsonDecode(Prefs.getSting(key: "FavoriteModel")) == null
             ? []
             : (jsonDecode(Prefs.getSting(key: "FavoriteModel")) as List)
                 .map((e) => MoviesDetailsModel.fromJson(e))
                 .toList();
-  }
-
-  bool isFavorite(MoviesDetailsModel movie) {
-    favoriteMovieId = Prefs.getDataList(key: "Favorites");
-    if (favoriteMovieId.contains(movie.id.toString())) {
-      return true;
-    } else {
-      return false;
-    }
+    _eventLoadingStatus = EventLoadingStatus.loaded;
+    notifyListeners();
+    return _favoriteMovieList;
   }
 
   addOrRemoveFavorite(MoviesDetailsModel movie) async {
-    favoriteMovieId = Prefs.getDataList(key: "Favorites");
-
-    if (favoriteMovieId.contains(movie.id.toString())) {
-      favoriteMovieId.remove(movie.id.toString());
-      await Prefs.setData(key: "Favorites", value: favoriteMovieId);
+    if (isFavorite(movie)) {
       _favoriteMovieList.removeWhere((element) => element.id == movie.id!);
-      await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
-      await fetchFavoriteMovieList();
     } else {
-      favoriteMovieId.add(movie.id.toString());
-      await Prefs.setData(key: "Favorites", value: favoriteMovieId);
       _favoriteMovieList.add(movie);
-      await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
-      await fetchFavoriteMovieList();
     }
-    notifyListeners();
+    await Prefs.setString('FavoriteModel', json.encode(_favoriteMovieList));
+    fetchFavoriteMovieList();
+  }
+
+  bool isFavorite(MoviesDetailsModel movie) {
+    return _favoriteMovieList.any((element) => element.id == movie.id!);
   }
 }

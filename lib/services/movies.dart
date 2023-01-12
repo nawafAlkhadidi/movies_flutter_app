@@ -17,7 +17,7 @@ class MoviesServices {
 
   static Future<List<MoviesDetailsModel>> getUpComingMovies() async {
     List<MoviesDetailsModel> getUpComingMoviesList = [];
-    Response res = await DioHelper.get(endpoint: EndPoints.upComing);
+    Response res = await DioHelper.get(endpoint: EndPoints.upComing) ;
     getUpComingMoviesList = (res.data["results"] as List)
         .map((e) => MoviesDetailsModel.fromJson(e))
         .toList();
@@ -59,6 +59,8 @@ class MoviesServices {
     }
     return getTrendingMoviesList = [];
   }
+
+
 
   static Future<List<CastModel>> getMoviesCast({int? id}) async {
     List<CastModel> getMoviesCastList = [];
