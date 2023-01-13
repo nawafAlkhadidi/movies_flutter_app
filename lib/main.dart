@@ -3,11 +3,10 @@ import 'package:movie_app/library.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Prefs.init();
-  //
 //await Prefs.clearAllSharedPref();
-  if (Prefs.getData(key: "FavoriteModel") == null) {
-    print("nawafalkahdsidid");
-    Prefs.setData(key: "FavoriteModel", value: "null");
+  if (Prefs.getData(key: "Favorite") == null) {
+    Prefs.setData(key: "Favorite", value: "null");
+ 
   }
   runApp(
     MultiProvider(
