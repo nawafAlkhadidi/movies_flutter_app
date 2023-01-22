@@ -9,9 +9,8 @@ class LayoutScreen extends StatelessWidget {
         Provider.of<LayoutProvider>(context, listen: true);
     return Scaffold(
         appBar: AppBar(
-          
           centerTitle: true,
-         toolbarHeight: 30,
+          toolbarHeight: 30,
           title: Text(
             layoutprovider.getAppBarTitle[layoutprovider.getindex],
             style: const TextStyle(

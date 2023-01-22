@@ -13,12 +13,12 @@ class LayoutProvider with ChangeNotifier {
     "Favorites",
   ];
   int _index = 0;
-  PageController pageController = PageController();
+  // PageController pageController = PageController();
 ////////////////////////! variables !/////////////////////////
 
-  PageController get myPageController {
-    return pageController;
-  }
+  // PageController get myPageController {
+  //   return pageController;
+  // }
 
   int get getindex {
     return _index;
@@ -26,7 +26,7 @@ class LayoutProvider with ChangeNotifier {
 
   onTabIcon(index) {
     _index = index;
-    pageController = PageController(initialPage: index);
+    // pageController = PageController(initialPage: index);
     notifyListeners();
   }
 
