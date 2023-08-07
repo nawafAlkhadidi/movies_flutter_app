@@ -4,7 +4,7 @@
     </a>
 </p>
 
-# Movie App :
+# Movies App :
 
 In this project, I developed an application using the Dart language (Flutter), a simple app that shows many movies.
 
